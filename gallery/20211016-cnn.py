@@ -1,5 +1,4 @@
-# works on git checkpoint:
-
+""" works on git checkpoint: 240576a515d184d7a1c56ce05326952306a823ef """
 from manim import *
 from concept import imgwork, neuralwork
 
