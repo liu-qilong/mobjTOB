@@ -6,7 +6,7 @@ The videos and prominent scenes are in the `gallery/` folder. I'd be delighted i
 
 _Example: How to understand CNN intuitively_
 
-![CNN](https://github.com/sota-march/manimworks/blob/main/gallery/scenes/cnn.jpeg)
-![Single layer](https://github.com/sota-march/manimworks/blob/main/gallery/scenes/single_layer.jpeg)
-![Convolution](https://github.com/sota-march/manimworks/blob/main/gallery/scenes/convolution.jpeg)
-![Multilayer Perceptron](https://github.com/sota-march/manimworks/blob/main/gallery/scenes/mlp.jpeg)
+![CNN](https://github.com/Qilong-Kirov-LIU/manimworks/blob/main/gallery/scenes/cnn.jpeg)
+![Single layer](https://github.com/Qilong-Kirov-LIU/manimworks/blob/main/gallery/scenes/single_layer.jpeg)
+![Convolution](https://github.com/Qilong-Kirov-LIU/manimworks/blob/main/gallery/scenes/convolution.jpeg)
+![Multilayer Perceptron](https://github.com/Qilong-Kirov-LIU/manimworks/blob/main/gallery/scenes/mlp.jpeg)
