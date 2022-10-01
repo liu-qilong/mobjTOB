@@ -1,6 +1,5 @@
 import numpy as np
 from manim import *
-from manim.utils.color import Colors
 
 
 class Matrix_Box_2d(VGroup):
@@ -139,8 +138,8 @@ class Dot_with_Label_3d(VGroup):
 
         self.pos = self.coords_to_point(self.coord)
         self.dot = Dot3D(self.pos, color=self.color_dot, radius=self.dot_radius)
-        self.label = Text(str(self.text), color=self.color_dot, font_size=15, font='sans-serif')\
-            .next_to(self.dot, UP).rotate(PI/2, axis=UP).rotate(PI/2, axis=RIGHT)
+        self.label = Text(str(self.text), color=self.color_dot, font_size=20)\
+            .next_to(self.dot, OUT)
         self.add(self.dot, self.label)
 
     def coords_to_point(self, coord):
