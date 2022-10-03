@@ -1,4 +1,4 @@
-""" works on git checkpoint: e9408d3bff5a3c3238355c3d2a93b12896c2d1bf """
+""" works on git checkpoint: 114ffc5334b87bf402d8e56bc2a9e27e97b6e400 """
 from manim import *
 from manim.utils.color import Colors
 
@@ -6,12 +6,8 @@ from concept import linear_algebra
 from behavior import utils, format
 
 
-class Embedding(ThreeDScene):
+class Embedding(Scene):
     def construct(self):
-        front_color = BLACK
-        back_color = WHITE
-        self.camera.background_color = back_color
-
         arrow = Arrow(start=UP, end=DOWN, color=GOLD)
         arrow_text = Text('Word Embedding', color=GOLD).next_to(arrow, RIGHT).scale(0.8)
 
@@ -23,10 +19,10 @@ class Embedding(ThreeDScene):
 
         embedding = linear_algebra.Matrix_Box_Heat_2d(
             array=np.array(
-                ((0.6, 0.9, 0.1),
-                 (0.5, 0.8, -0.1),
-                 (0.7, -0.1, 0.4),
-                 (-0.8, 0.4, -0.5))
+                ((0.6, 0.9, 0.9),
+                 (-0.5, 0.8, 0.9),
+                 (0.7, -0.8, 0.4),
+                 (0.8, 0.4, 0.5))
             ).T,
             color_fill=Colors.green_e.value,
         ).next_to(arrow, DOWN)
@@ -116,7 +112,8 @@ class Embedding_Space_Relationship(ThreeDScene):
         links = VGroup()
         for idx in range(len(group2.submobjects)):
             links.add(
-                group1.submobjects[idx].connect(
+                linear_algebra.connect_dot_with_label(
+                    group1.submobjects[idx],
                     group2.submobjects[idx]
                 )
             )
@@ -128,17 +125,33 @@ class Embedding_Space_Relationship(ThreeDScene):
 if __name__ == '__main__':
     with tempconfig({
         "format": "png",
-        # "transparent": True,
+        "transparent": True,
         "output_file": "manim-",
         "zero_pad": False,
-        "frame_rate": 10,
+        "frame_rate": 1,
         "pixel_width": 1024,
         "pixel_height": 1024,
         "preview": True,
     }):
         scenes = (
-            # Embedding(),
-            # Embedding_Space_Similarity(),
+            Embedding(),
+        )
+
+        for scene in scenes:
+            scene.render()
+
+    with tempconfig({
+        "format": "png",
+        #"transparent": True,
+        "output_file": "manim-",
+        "zero_pad": False,
+        "frame_rate": 1,
+        "pixel_width": 1024,
+        "pixel_height": 1024,
+        "preview": True,
+    }):
+        scenes = (
+            Embedding_Space_Similarity(),
             Embedding_Space_Relationship(),
         )
 
