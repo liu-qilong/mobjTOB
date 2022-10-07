@@ -1,4 +1,4 @@
-""" works on git checkpoint: e9408d3bff5a3c3238355c3d2a93b12896c2d1bf """
+""" works on git checkpoint: d4666d174a86bae78227c6917674392c8b63ab90 """
 import copy
 import scipy
 import numpy as np
