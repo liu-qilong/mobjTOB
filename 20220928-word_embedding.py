@@ -11,13 +11,13 @@ class Embedding(Scene):
         arrow = Arrow(start=UP, end=DOWN, color=GOLD)
         arrow_text = Text('Word Embedding', color=GOLD).next_to(arrow, RIGHT).scale(0.8)
 
-        text = linear_algebra.Matrix_Box_2d(
+        text = linear_algebra.Matrix_Box(
             array=utils.vector_to_row(np.array(('I', 'have', 'a', 'car'))),
             color_fill=GRAY_A,
             # color_border=GRAY_A
         ).next_to(arrow, UP)
 
-        embedding = linear_algebra.Matrix_Box_Heat_2d(
+        embedding = linear_algebra.Matrix_Box_Heat(
             array=np.array(
                 ((0.6, 0.9, 0.9),
                  (-0.5, 0.8, 0.9),

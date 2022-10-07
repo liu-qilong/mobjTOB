@@ -2,7 +2,7 @@ import numpy as np
 from manim import *
 
 
-class Matrix_Box_2d(VGroup):
+class Matrix_Box_Basic(VGroup):
     def __init__(
             self,
             init_len=1.5,
@@ -100,13 +100,34 @@ class Matrix_Box_2d(VGroup):
         self.add(self.boxes, self.texts)
 
     def expand_random(self, axis=0):
-        """ noted that expand the matrix will remove all the highlighting/lightening """
         expand_shape = list(self.array.shape)
         expand_shape[axis] = 1
         expand_array = np.random.rand(*expand_shape)
         new_array = np.concatenate((self.array, expand_array), axis=axis)
         self.change_array(new_array, align_mode='1st')
 
+
+class Matrix_Box(Matrix_Box_Basic):
+    def __init__(
+            self,
+            *args,
+            **kwargs
+    ):
+        # Matrix_Box_Basic.__init__(self, *args, **kwargs)
+        Matrix_Box_Basic.__init__(self, *args, **kwargs)
+        self.highlight_index_set = set()
+        for index, value in np.ndenumerate(self.array):
+            self.highlight_index_set.add(index)
+
+    def expand_random(self, axis=0):
+        """ newly added cells in self.expand_random() are set as highlighted in default
+        P.S. but self.change_array() doesn't change the highlighted index list """
+        Matrix_Box_Basic.expand_random(self, axis)
+        axis_expand = self.array.shape[axis] - 1
+        for index, value in np.ndenumerate(self.array):
+            if index[axis] == axis_expand:
+                self.highlight_index_set.add(index)
+        self.update_highlight_lighten()
 
     def lighten_cell(self, index, opacity=0.2):
         self.texts[str(index)].set_opacity(opacity)
@@ -126,46 +147,65 @@ class Matrix_Box_2d(VGroup):
             new_box.move_to(origin_box_pos).scale(scale_rate)
         )
 
-    def highlight_cell(self, id, opacity=0.2):
+    def update_highlight_lighten(self, opacity=0.2):
         for index, value in np.ndenumerate(self.array):
-            if index != id:
-                self.lighten_cell(index, opacity)
-            else:
+            if index in self.highlight_index_set:
                 self.cancel_lighten_cell(index)
+            else:
+                self.lighten_cell(index, opacity)
+
+    def highlight_cell(self, index, opacity=0.2):
+        for id, value in np.ndenumerate(self.array):
+            if id == index:
+                self.highlight_index_set.add(index)
+            else:
+                if index in self.highlight_index_set:
+                    self.highlight_index_set.remove(index)
+        self.update_highlight_lighten(opacity)
 
     def highlight_rows(self, rows, opacity=0.2):
         for index, value in np.ndenumerate(self.array):
-            if index[-2] not in rows:
-                self.lighten_cell(index, opacity)
+            if index[-2] in rows:
+                self.highlight_index_set.add(index)
             else:
-                self.cancel_lighten_cell(index)
+                if index in self.highlight_index_set:
+                    self.highlight_index_set.remove(index)
+        self.update_highlight_lighten(opacity)
 
     def highlight_columns(self, columns, opacity=0.2):
         for index, value in np.ndenumerate(self.array):
-            if index[-1] not in columns:
-                self.lighten_cell(index, opacity)
+            if index[-1] in columns:
+                self.highlight_index_set.add(index)
             else:
-                self.cancel_lighten_cell(index)
+                if index in self.highlight_index_set:
+                    self.highlight_index_set.remove(index)
+        self.update_highlight_lighten(opacity)
 
     def cancel_lighten_rows(self, rows):
         for index, value in np.ndenumerate(self.array):
             if index[-2] in rows:
-                self.cancel_lighten_cell(index)
+                self.highlight_index_set.add(index)
+        self.update_highlight_lighten()
 
     def cancel_lighten_columns(self, columns):
         for index, value in np.ndenumerate(self.array):
             if index[-1] in columns:
-                self.cancel_lighten_cell(index)
+                self.highlight_index_set.add(index)
+        self.update_highlight_lighten()
 
     def lighten_all(self, opacity=0.2):
-        self.highlight_columns(list(), opacity)
+        for index, value in np.ndenumerate(self.array):
+            if index in self.highlight_index_set:
+                self.highlight_index_set.remove(index)
+        self.update_highlight_lighten(opacity)
 
     def cancel_lighten_all(self, opacity=0.2):
         for index, value in np.ndenumerate(self.array):
-            self.cancel_lighten_cell(index)
+            self.highlight_index_set.add(index)
+        self.update_highlight_lighten(opacity)
 
 
-class Matrix_Box_Heat_2d(Matrix_Box_2d):
+class Matrix_Box_Heat(Matrix_Box):
     def heat_map(self, value):
         # map value to (0, 1)
         value_max = self.array.max()
@@ -186,10 +226,10 @@ class Matrix_Box_Heat_2d(Matrix_Box_2d):
         return rec
 
 
-class Matrix_Box_Heat_3d(Matrix_Box_Heat_2d):
-    def __init__(self, text_mode='1st', *args, **kwargs):
-        self.text_mode = text_mode
-        Matrix_Box_Heat_2d.__init__(self, *args, **kwargs)
+class Tensor_Box_Heat(Matrix_Box_Heat):
+    def __init__(self, *args, **kwargs):
+        Matrix_Box_Heat.__init__(self, *args, **kwargs)
+        self.update_highlight_lighten()
 
     def index_to_pos(self, index):
         # with this coordinates transformation, the vector/matrix/tensor looks just the same as its numpy arrangement
@@ -215,34 +255,36 @@ class Matrix_Box_Heat_3d(Matrix_Box_Heat_2d):
 
     def create_text(self, index, value):
         pos = self.index_to_pos(index) + self.init_len/2 * OUT
-        if (self.text_mode == '1st') and (index[-3] == 0):
-            text = Text(
-                "{:.1f}".format(value), color=self.color_text
-            ).shift(pos)
-        else:
-            text = Text(
-                "", color=self.color_text
-            ).shift(pos)
+        text = Text(
+            "{:.1f}".format(value), color=self.color_text
+        ).shift(pos)
         return text
 
-    def lighten_cell(self, index, opacity=0.2):
-        if self.text_mode == '1st' and index[-3] == 0:
-            self.texts[str(index)].set_opacity(0.5)
-        else:
-            self.texts[str(index)].set_opacity(0)
-        self.boxes[str(index)].set_opacity(opacity)
-
-    def highlight_layers(self, rows, opacity=0.2):
+    def update_highlight_lighten(self, opacity=0.2):
+        Matrix_Box_Heat.update_highlight_lighten(self, opacity)
+        # for text, only show the top layer of the highlighted entries
+        highlight_layer_list = [index[-3] for index in self.highlight_index_set]
+        top_highlight_layer = np.min(highlight_layer_list)
         for index, value in np.ndenumerate(self.array):
-            if index[-3] not in rows:
-                self.lighten_cell(index, opacity)
+            if (index in self.highlight_index_set) and (index[-3] == top_highlight_layer):
+                self.texts[str(index)].set_opacity(1)
             else:
-                self.cancel_lighten_cell(index)
+                self.texts[str(index)].set_opacity(0)
 
-    def cancel_lighten_layers(self, rows):
+    def highlight_layers(self, layers, opacity=0.2):
         for index, value in np.ndenumerate(self.array):
-            if index[-3] in rows:
-                self.cancel_lighten_cell(index)
+            if index[-3] in layers:
+                self.highlight_index_set.add(index)
+            else:
+                if index in self.highlight_index_set:
+                    self.highlight_index_set.remove(index)
+        self.update_highlight_lighten(opacity)
+
+    def cancel_lighten_layers(self, layers):
+        for index, value in np.ndenumerate(self.array):
+            if index[-3] in layers:
+                self.highlight_index_set.add(layers)
+        self.update_highlight_lighten()
 
 
 class Dot_with_Label_3d(VGroup):

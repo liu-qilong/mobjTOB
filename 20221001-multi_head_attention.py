@@ -91,23 +91,23 @@ class Single_Word(ThreeDScene):
 
         # first row
         coe1 = MathTex(r"\frac{1}{\sqrt{d}}(", color=font_color)
-        W_K = linear_algebra.Matrix_Box_Heat_2d(
+        W_K = linear_algebra.Matrix_Box_Heat(
             array=array_W_K,
             name=r"\boldsymbol{W}_K",
             color_text=font_color,
             color_fill=GOLD).next_to(coe1, RIGHT)
-        x_j = linear_algebra.Matrix_Box_Heat_2d(
+        x_j = linear_algebra.Matrix_Box_Heat(
             array=array_x_j,
             name=r"\boldsymbol{x}_j",
             color_text=font_color).next_to(W_K, RIGHT).align_to(W_K, DOWN)
         equations.add(coe1, W_K, x_j)
         mid1 = MathTex(r")^T \cdot (", color=font_color).next_to(x_j, RIGHT)
-        W_Q = linear_algebra.Matrix_Box_Heat_2d(
+        W_Q = linear_algebra.Matrix_Box_Heat(
             array=array_W_Q,
             name=r"\boldsymbol{W}_Q",
             color_text=font_color,
             color_fill=GOLD).next_to(mid1, RIGHT)
-        x_i = linear_algebra.Matrix_Box_Heat_2d(
+        x_i = linear_algebra.Matrix_Box_Heat(
             array=array_x_i,
             name = r"\boldsymbol{x}_i",
             color_text=font_color).next_to(W_Q, RIGHT).align_to(W_Q, DOWN)
@@ -117,12 +117,12 @@ class Single_Word(ThreeDScene):
         # second row
         coe2 = MathTex(r"= \frac{1}{\sqrt{d}}\,", color=font_color)\
             .next_to(W_K, DOWN, buff=2).align_to(coe1, RIGHT).shift(DOWN)
-        k_j_T = linear_algebra.Matrix_Box_Heat_2d(
+        k_j_T = linear_algebra.Matrix_Box_Heat(
             array=array_k_j_T,
             name=r"\boldsymbol{k}_j^T",
             color_text=font_color,
             color_fill=BLUE_E).next_to(coe2, RIGHT)
-        q_i = linear_algebra.Matrix_Box_Heat_2d(
+        q_i = linear_algebra.Matrix_Box_Heat(
             array=array_q_i,
             name=r"\boldsymbol{q}_i",
             color_text=font_color,
@@ -132,7 +132,7 @@ class Single_Word(ThreeDScene):
         # third row
         coe3 = MathTex(r"= \frac{1}{\sqrt{d}}", color=font_color) \
             .next_to(q_i, RIGHT)
-        z_ji = linear_algebra.Matrix_Box_Heat_2d(
+        z_ji = linear_algebra.Matrix_Box_Heat(
             array=array_z_ji,
             name=r"z_{ji}",
             color_text=font_color,
@@ -177,23 +177,23 @@ class Multiple_Words(MovingCameraScene):
 
         # first row
         coe1 = MathTex(r"\frac{1}{\sqrt{d}}(", color=font_color)
-        W_K = linear_algebra.Matrix_Box_Heat_2d(
+        W_K = linear_algebra.Matrix_Box_Heat(
             array=array_W_K,
             name=r"\boldsymbol{W}_K",
             color_text=font_color,
             color_fill=GOLD).next_to(coe1, RIGHT)
-        x_l = linear_algebra.Matrix_Box_Heat_2d(
+        x_l = linear_algebra.Matrix_Box_Heat(
             array=array_x,
             name=r"\boldsymbol{x}",
             color_text=font_color).next_to(W_K, RIGHT).align_to(W_K, DOWN)
         equations.add(coe1, W_K, x_l)
         mid1 = MathTex(r")^T \cdot (", color=font_color).next_to(x_l, RIGHT)
-        W_Q = linear_algebra.Matrix_Box_Heat_2d(
+        W_Q = linear_algebra.Matrix_Box_Heat(
             array=array_W_Q,
             name=r"\boldsymbol{W}_Q",
             color_text=font_color,
             color_fill=GOLD).next_to(mid1, RIGHT)
-        x_r = linear_algebra.Matrix_Box_Heat_2d(
+        x_r = linear_algebra.Matrix_Box_Heat(
             array=array_x_r,
             name = r"\boldsymbol{x}_i",
             color_text=font_color).next_to(W_Q, RIGHT).align_to(W_Q, DOWN)
@@ -203,12 +203,12 @@ class Multiple_Words(MovingCameraScene):
         # second row
         coe2 = MathTex(r"= \frac{1}{\sqrt{d}}\,", color=font_color)\
             .next_to(W_K, DOWN, buff=2).align_to(coe1, RIGHT).shift(DOWN)
-        k_T = linear_algebra.Matrix_Box_Heat_2d(
+        k_T = linear_algebra.Matrix_Box_Heat(
             array=array_k_T,
             name=r"\boldsymbol{k}^T",
             color_text=font_color,
             color_fill=BLUE_E).next_to(coe2, RIGHT)
-        q = linear_algebra.Matrix_Box_Heat_2d(
+        q = linear_algebra.Matrix_Box_Heat(
             array=array_q,
             name=r"\boldsymbol{q}_i",
             color_text=font_color,
@@ -218,7 +218,7 @@ class Multiple_Words(MovingCameraScene):
         # third row
         coe3 = MathTex(r"= \frac{1}{\sqrt{d}}", color=font_color) \
             .next_to(q, RIGHT)
-        z = linear_algebra.Matrix_Box_Heat_2d(
+        z = linear_algebra.Matrix_Box_Heat(
             array=array_w,
             name=r"\boldsymbol{z}_i",
             color_text=font_color,
@@ -236,7 +236,7 @@ class Multiple_Words(MovingCameraScene):
             r"\boldsymbol w_i = Softmax(\boldsymbol z_i)\\w_{ji} = \frac{exp(\boldsymbol z_{ji})}{\sum\limits_{j} exp("
             r"z_{ji})}",
             color=BLACK).next_to(arrow_softmax, UP).scale(0.8)
-        w = linear_algebra.Matrix_Box_Heat_2d(
+        w = linear_algebra.Matrix_Box_Heat(
             array=array_w,
             name=r"\boldsymbol{w}_i",
             color_text=font_color,
@@ -307,23 +307,23 @@ class Single_Head(MovingCameraScene):
 
         # first row
         coe1 = MathTex(r"\frac{1}{\sqrt{d}}(", color=font_color)
-        W_K = linear_algebra.Matrix_Box_Heat_2d(
+        W_K = linear_algebra.Matrix_Box_Heat(
             array=array_W_K,
             name=r"\boldsymbol{W}_K",
             color_text=font_color,
             color_fill=GOLD).next_to(coe1, RIGHT)
-        x_l = linear_algebra.Matrix_Box_Heat_2d(
+        x_l = linear_algebra.Matrix_Box_Heat(
             array=array_x,
             name=r"\boldsymbol{x}",
             color_text=font_color).next_to(W_K, RIGHT).align_to(W_K, DOWN)
         equations.add(coe1, W_K, x_l)
         mid1 = MathTex(r")^T \cdot (", color=font_color).next_to(x_l, RIGHT)
-        W_Q = linear_algebra.Matrix_Box_Heat_2d(
+        W_Q = linear_algebra.Matrix_Box_Heat(
             array=array_W_Q,
             name=r"\boldsymbol{W}_Q",
             color_text=font_color,
             color_fill=GOLD).next_to(mid1, RIGHT)
-        x_r = linear_algebra.Matrix_Box_Heat_2d(
+        x_r = linear_algebra.Matrix_Box_Heat(
             array=array_x,
             name = r"\boldsymbol{x}",
             color_text=font_color).next_to(W_Q, RIGHT).align_to(W_Q, DOWN)
@@ -333,12 +333,12 @@ class Single_Head(MovingCameraScene):
         # second row
         coe2 = MathTex(r"= \frac{1}{\sqrt{d}}\,", color=font_color)\
             .next_to(W_K, DOWN, buff=2).align_to(coe1, RIGHT).shift(DOWN)
-        k_T = linear_algebra.Matrix_Box_Heat_2d(
+        k_T = linear_algebra.Matrix_Box_Heat(
             array=array_k_T,
             name=r"\boldsymbol{k}^T",
             color_text=font_color,
             color_fill=BLUE_E).next_to(coe2, RIGHT)
-        q = linear_algebra.Matrix_Box_Heat_2d(
+        q = linear_algebra.Matrix_Box_Heat(
             array=array_q,
             name=r"\boldsymbol{q}",
             color_text=font_color,
@@ -348,7 +348,7 @@ class Single_Head(MovingCameraScene):
         # third row
         coe3 = MathTex(r"= \frac{1}{\sqrt{d}}", color=font_color) \
             .next_to(q, RIGHT)
-        z = linear_algebra.Matrix_Box_Heat_2d(
+        z = linear_algebra.Matrix_Box_Heat(
             array=array_z,
             name=r"\boldsymbol{z}",
             color_text=font_color,
@@ -365,7 +365,7 @@ class Single_Head(MovingCameraScene):
         arrow_softmax_text = MathTex(
             r"\boldsymbol w = Softmax(\boldsymbol z)",
             color=BLACK).next_to(arrow_softmax, UP).scale(0.8)
-        w = linear_algebra.Matrix_Box_Heat_2d(
+        w = linear_algebra.Matrix_Box_Heat(
             array=array_w,
             name=r"\boldsymbol{w}",
             color_text=font_color,
@@ -443,28 +443,28 @@ class Multi_Head(ThreeDScene):
 
         # first row
         coe1 = MathTex(r"\frac{1}{\sqrt{d}}(", color=font_color, font_size=100)
-        W_K = linear_algebra.Matrix_Box_Heat_3d(
+        W_K = linear_algebra.Tensor_Box_Heat(
             array=array_W_K,
             name=r"\boldsymbol{W}_K",
             color_text=font_color,
             color_fill=GOLD,
             name_size=80,
             name_buff=1).next_to(coe1, 5*RIGHT)
-        x_l = linear_algebra.Matrix_Box_Heat_3d(
+        x_l = linear_algebra.Tensor_Box_Heat(
             array=array_x,
             name=r"\boldsymbol{x}",
             color_text=font_color,
             name_size=80,
             name_buff=1).next_to(W_K, 6*RIGHT).align_to(W_K, DOWN)
         mid1 = MathTex(r")^T \cdot (", color=font_color, font_size=100).next_to(x_l, 5*RIGHT)
-        W_Q = linear_algebra.Matrix_Box_Heat_3d(
+        W_Q = linear_algebra.Tensor_Box_Heat(
             array=array_W_Q,
             name=r"\boldsymbol{W}_Q",
             color_text=font_color,
             color_fill=GOLD,
             name_size=80,
             name_buff=1).next_to(mid1, 5*RIGHT)
-        x_r = linear_algebra.Matrix_Box_Heat_3d(
+        x_r = linear_algebra.Tensor_Box_Heat(
             array=array_x,
             name = r"\boldsymbol{x}",
             color_text=font_color,
@@ -476,14 +476,14 @@ class Multi_Head(ThreeDScene):
         # second row
         coe2 = MathTex(r"= \frac{1}{\sqrt{d}}\,", color=font_color, font_size=100)\
             .next_to(W_K, DOWN, buff=2).align_to(coe1, 5*RIGHT).shift(5*DOWN)
-        k_T = linear_algebra.Matrix_Box_Heat_3d(
+        k_T = linear_algebra.Tensor_Box_Heat(
             array=array_k_T,
             name=r"\boldsymbol{k}^T",
             color_text=font_color,
             color_fill=BLUE_E,
             name_size=80,
             name_buff=1).next_to(coe2, 5*RIGHT)
-        q = linear_algebra.Matrix_Box_Heat_3d(
+        q = linear_algebra.Tensor_Box_Heat(
             array=array_q,
             name=r"\boldsymbol{q}",
             color_text=font_color,
@@ -495,7 +495,7 @@ class Multi_Head(ThreeDScene):
         # third row
         coe3 = MathTex(r"= \frac{1}{\sqrt{d}}", color=font_color, font_size=100) \
             .next_to(q, 5*RIGHT)
-        z = linear_algebra.Matrix_Box_Heat_3d(
+        z = linear_algebra.Tensor_Box_Heat(
             array=array_z,
             name=r"\boldsymbol{z}",
             color_text=font_color,
@@ -509,7 +509,7 @@ class Multi_Head(ThreeDScene):
         arrow_softmax_text = MathTex(
             r"softmax",
             color=BLACK, font_size=60).next_to(arrow_softmax, UP)
-        w = linear_algebra.Matrix_Box_Heat_3d(
+        w = linear_algebra.Tensor_Box_Heat(
             array=array_w,
             name=r"\boldsymbol{w}",
             color_text=font_color,
@@ -578,7 +578,7 @@ class Test(ThreeDScene):
              (0.1, -0.1, 0.9))
         )
         array_W_K = np.expand_dims(array_W_K, 0)
-        W_K = linear_algebra.Matrix_Box_Heat_3d(
+        W_K = linear_algebra.Tensor_Box_Heat(
             array=array_W_K,
             name=r"\boldsymbol{W}_K",
             color_text=font_color,
@@ -589,7 +589,6 @@ class Test(ThreeDScene):
         W_K.expand_random(axis=0)
         W_K.highlight_layers((0,))
         self.wait()
-
 
 if __name__ == '__main__':
     '''
