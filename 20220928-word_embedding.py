@@ -1,4 +1,4 @@
-""" works on git checkpoint: d4666d174a86bae78227c6917674392c8b63ab90 """
+""" works on git checkpoint: 99fd2ff5e28762f39b1967c1933d478ee626d663 """
 from manim import *
 from manim.utils.color import Colors
 
