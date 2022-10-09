@@ -110,12 +110,14 @@ class Matrix_Box_Basic(VGroup):
 class Matrix_Box(Matrix_Box_Basic):
     def __init__(
             self,
+            lighten_opacity=0.2,
             *args,
             **kwargs
     ):
         # Matrix_Box_Basic.__init__(self, *args, **kwargs)
         Matrix_Box_Basic.__init__(self, *args, **kwargs)
         self.highlight_index_set = set()
+        self.lighten_opacity = lighten_opacity
         for index, value in np.ndenumerate(self.array):
             self.highlight_index_set.add(index)
 
@@ -129,9 +131,9 @@ class Matrix_Box(Matrix_Box_Basic):
                 self.highlight_index_set.add(index)
         self.update_highlight_lighten()
 
-    def lighten_cell(self, index, opacity=0.2):
-        self.texts[str(index)].set_opacity(opacity)
-        self.boxes[str(index)].set_opacity(opacity)
+    def lighten_cell(self, index):
+        self.texts[str(index)].set_opacity(self.lighten_opacity)
+        self.boxes[str(index)].set_opacity(self.lighten_opacity)
 
     def cancel_lighten_cell(self, index):
         value = self.array[index]
@@ -147,39 +149,42 @@ class Matrix_Box(Matrix_Box_Basic):
             new_box.move_to(origin_box_pos).scale(scale_rate)
         )
 
-    def update_highlight_lighten(self, opacity=0.2):
+    def update_highlight_lighten(self):
         for index, value in np.ndenumerate(self.array):
             if index in self.highlight_index_set:
                 self.cancel_lighten_cell(index)
             else:
-                self.lighten_cell(index, opacity)
+                self.lighten_cell(index)
 
     def highlight_cell(self, index, opacity=0.2):
+        self.lighten_opacity = opacity
         for id, value in np.ndenumerate(self.array):
             if id == index:
                 self.highlight_index_set.add(index)
             else:
                 if index in self.highlight_index_set:
                     self.highlight_index_set.remove(index)
-        self.update_highlight_lighten(opacity)
+        self.update_highlight_lighten()
 
     def highlight_rows(self, rows, opacity=0.2):
+        self.lighten_opacity = opacity
         for index, value in np.ndenumerate(self.array):
             if index[-2] in rows:
                 self.highlight_index_set.add(index)
             else:
                 if index in self.highlight_index_set:
                     self.highlight_index_set.remove(index)
-        self.update_highlight_lighten(opacity)
+        self.update_highlight_lighten()
 
     def highlight_columns(self, columns, opacity=0.2):
+        self.lighten_opacity = opacity
         for index, value in np.ndenumerate(self.array):
             if index[-1] in columns:
                 self.highlight_index_set.add(index)
             else:
                 if index in self.highlight_index_set:
                     self.highlight_index_set.remove(index)
-        self.update_highlight_lighten(opacity)
+        self.update_highlight_lighten()
 
     def cancel_lighten_rows(self, rows):
         for index, value in np.ndenumerate(self.array):
@@ -194,15 +199,16 @@ class Matrix_Box(Matrix_Box_Basic):
         self.update_highlight_lighten()
 
     def lighten_all(self, opacity=0.2):
+        self.lighten_opacity = opacity
         for index, value in np.ndenumerate(self.array):
             if index in self.highlight_index_set:
                 self.highlight_index_set.remove(index)
-        self.update_highlight_lighten(opacity)
+        self.update_highlight_lighten()
 
     def cancel_lighten_all(self, opacity=0.2):
         for index, value in np.ndenumerate(self.array):
             self.highlight_index_set.add(index)
-        self.update_highlight_lighten(opacity)
+        self.update_highlight_lighten()
 
 
 class Matrix_Box_Heat(Matrix_Box):
@@ -260,8 +266,8 @@ class Tensor_Box_Heat(Matrix_Box_Heat):
         ).shift(pos)
         return text
 
-    def update_highlight_lighten(self, opacity=0.2):
-        Matrix_Box_Heat.update_highlight_lighten(self, opacity)
+    def update_highlight_lighten(self):
+        Matrix_Box_Heat.update_highlight_lighten(self)
         # for text, only show the top layer of the highlighted entries
         highlight_layer_list = [index[-3] for index in self.highlight_index_set]
         top_highlight_layer = np.min(highlight_layer_list)
@@ -272,13 +278,14 @@ class Tensor_Box_Heat(Matrix_Box_Heat):
                 self.texts[str(index)].set_opacity(0)
 
     def highlight_layers(self, layers, opacity=0.2):
+        self.lighten_opacity = opacity
         for index, value in np.ndenumerate(self.array):
             if index[-3] in layers:
                 self.highlight_index_set.add(index)
             else:
                 if index in self.highlight_index_set:
                     self.highlight_index_set.remove(index)
-        self.update_highlight_lighten(opacity)
+        self.update_highlight_lighten()
 
     def cancel_lighten_layers(self, layers):
         for index, value in np.ndenumerate(self.array):
