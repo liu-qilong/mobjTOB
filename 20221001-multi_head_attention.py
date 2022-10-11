@@ -7,7 +7,6 @@ from manim import *
 from concept import linear_algebra
 from behavior import utils, format
 
-
 class Embedding_Averg_Transform(ThreeDScene):
     def construct(self):
         self.set_camera_orientation(phi=75 * DEGREES, theta=30 * DEGREES)
@@ -559,7 +558,6 @@ class Multi_Head(ThreeDScene):
             self.wait()
 
 
-
 class Test(ThreeDScene):
     def construct(self):
         self.set_camera_orientation(zoom=0.5, focal_distance=1e5)
@@ -589,6 +587,7 @@ class Test(ThreeDScene):
         W_K.expand_random(axis=0)
         W_K.highlight_layers((0,))
         self.wait()
+
 
 if __name__ == '__main__':
     '''

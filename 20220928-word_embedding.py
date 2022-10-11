@@ -5,7 +5,6 @@ from manim.utils.color import Colors
 from concept import linear_algebra
 from behavior import utils, format
 
-
 class Embedding(Scene):
     def construct(self):
         arrow = Arrow(start=UP, end=DOWN, color=GOLD)

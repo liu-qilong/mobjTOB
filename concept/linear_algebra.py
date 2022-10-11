@@ -1,7 +1,6 @@
 import numpy as np
 from manim import *
 
-
 class Matrix_Box_Basic(VGroup):
     def __init__(
             self,
