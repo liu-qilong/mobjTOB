@@ -1,6 +1,9 @@
-""" works on git checkpoint:  """
+""" works on git checkpoint: 8b50fe7267b5ac2a1b835f955f0b17a55ace4eb1 """
 from turtle import fillcolor
 from manim import *
+
+import sys
+sys.path.insert(0, '../mobjTOB')
 
 from concept import obj_model
 from behavior import utils, format
@@ -9,12 +12,12 @@ class Test(ThreeDScene):
     def construct(self):
         self.set_camera_orientation(phi=60 * DEGREES)
 
-        pcd = obj_model.Point_Cloud("gallery/material/cube.obj")
+        pcd = obj_model.Point_Cloud("material/cube.obj")
         # pcd.lightup()
         pcd.rotate(90*DEGREES, RIGHT)
         
         mesh = obj_model.Mesh(
-            "gallery/material/cube.obj",
+            "material/cube.obj",
             # sheen_factor=0.5,
         ).set_sheen(-0.3, DR)
         # mesh.lightup()

@@ -1,3 +1,8 @@
+""" 8b50fe7267b5ac2a1b835f955f0b17a55ace4eb1 """
+
+import sys
+sys.path.insert(0, '../mobjTOB')
+
 from manim import *
 from concept import neuralwork_irregular, imgwork_irregular
 # This is one of the early works. The concept classes are written in an irregular way.
@@ -5,7 +10,7 @@ from concept import neuralwork_irregular, imgwork_irregular
 class SceneMLP(MovingCameraScene):
 
     def construct(self):
-        img = ImageMobject('gallery/material/digit.png').set_opacity(0.8).scale(0.6)
+        img = ImageMobject('material/digit.png').set_opacity(0.8).scale(0.6)
         rec_img = SurroundingRectangle(img, WHITE).set_stroke(width=2)
         img_and_rec = Group(img, rec_img)
 
@@ -31,7 +36,7 @@ class SceneCNN(MovingCameraScene):
 
         self.SectionShow("1 What happens when putting image into neural network", ORIGIN)
 
-        img = ImageMobject('gallery/material/digit.png').set_opacity(0.8).scale(0.6)
+        img = ImageMobject('material/digit.png').set_opacity(0.8).scale(0.6)
         rec_img = SurroundingRectangle(img, WHITE).set_stroke(width=2)
         img_and_rec = Group(img, rec_img)
         self.play(FadeIn(img_and_rec))

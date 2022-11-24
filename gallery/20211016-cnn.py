@@ -1,4 +1,8 @@
-""" works on git checkpoint: e9408d3bff5a3c3238355c3d2a93b12896c2d1bf """
+""" works on git checkpoint: 8b50fe7267b5ac2a1b835f955f0b17a55ace4eb1 """
+
+import sys
+sys.path.insert(0, '../mobjTOB')
+
 from manim import *
 from concept import imgwork, neuralwork
 
@@ -9,7 +13,7 @@ class SceneCNN(MovingCameraScene):
         
         self.SectionShow("1 What happens when putting image into neural network", ORIGIN)
         
-        img = ImageMobject('gallery/material/cat.jpeg').set_opacity(0.8).scale(0.6)
+        img = ImageMobject('material/cat.jpeg').set_opacity(0.8).scale(0.6)
         rec_img = SurroundingRectangle(img, WHITE).set_stroke(width=2)
         img_and_rec = Group(img, rec_img)
         self.play(FadeIn(img_and_rec))

@@ -1,6 +1,9 @@
-""" works on git checkpoint: 99fd2ff5e28762f39b1967c1933d478ee626d663 """
+""" works on git checkpoint: 8b50fe7267b5ac2a1b835f955f0b17a55ace4eb1 """
 from manim import *
 from manim.utils.color import Colors
+
+import sys
+sys.path.insert(0, '../mobjTOB')
 
 from concept import linear_algebra
 from behavior import utils, format

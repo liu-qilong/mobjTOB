@@ -1,3 +1,8 @@
+""" works on git checkpoint: 8b50fe7267b5ac2a1b835f955f0b17a55ace4eb1 """
+
+import sys
+sys.path.insert(0, '../mobjTOB')
+
 from manim import *
 from concept import polieco
 from behavior import format
